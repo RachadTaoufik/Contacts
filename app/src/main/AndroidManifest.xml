@@ -12,6 +12,12 @@
         android:theme="@style/Theme.Contacts"
         tools:targetApi="31">
         <activity
+            android:name=".Ajouter_contact"
+            android:exported="false" />
+        <activity
+            android:name=".Liste_contacts"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

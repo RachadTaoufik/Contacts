@@ -2,9 +2,11 @@ package com.example.contacts;
 
 import static android.content.ContentValues.TAG;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button signup_auth;
     Button signup_acc;
     Button cancel;
+    Button ok;
 
     private FirebaseAuth mAuth;
 
@@ -55,11 +58,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         singin=(Button) findViewById(R.id.bt_signin);
         signup_auth=(Button) findViewById(R.id.btt_signup);
         signup_acc=(Button) findViewById(R.id.btt_singapp_acc);
+        ok=(Button) findViewById(R.id.btt_ok);
 
         //mettre les boutons en ecoute
         singin.setOnClickListener(this);
         signup_auth.setOnClickListener(this);
         signup_acc.setOnClickListener(this);
+        ok.setOnClickListener(this);
 
         //initialisation de Firebase Authentication
         mAuth = FirebaseAuth.getInstance();
@@ -150,6 +155,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String email = username_acc.getText().toString();
             String password = password_acc.getText().toString();
             createAccount( email,  password) ;
+        }
+        else if (view.getId()==R.id.btt_ok) {
+            Intent myintent= new Intent(this, Liste_contacts.class);
+            startActivity(myintent);
         }
 
     }
