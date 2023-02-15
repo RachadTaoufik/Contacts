@@ -21,13 +21,13 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    LinearLayout layout_succ;
     LinearLayout layout_auth;
     LinearLayout layout_acc;
     EditText username_auth;
     EditText password_auth;
     EditText firstname_acc;
     EditText lastname_acc;
-    EditText email_acc;
     EditText username_acc;
     EditText password_acc;
     Button singin;
@@ -45,12 +45,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //initialisation des views
         layout_auth=(LinearLayout)findViewById(R.id.layout_auth);
         layout_acc=(LinearLayout)findViewById(R.id.layout_acc);
-        layout_auth=(LinearLayout)findViewById(R.id.layout_auth);
+        layout_succ=(LinearLayout)findViewById(R.id.layout_auth_succ);
         username_auth=(EditText)findViewById(R.id.username_auth);
         password_auth=(EditText)findViewById(R.id.password_auth);
         firstname_acc=(EditText)findViewById(R.id.firstname_acc);
         lastname_acc=(EditText)findViewById(R.id.lastname_acc);
-        email_acc=(EditText)findViewById(R.id.email_acc);
         username_acc=(EditText)findViewById(R.id.username_acc);
         password_acc=(EditText)findViewById(R.id.password_acc);
         singin=(Button) findViewById(R.id.bt_signin);
@@ -76,7 +75,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void updateUI(FirebaseUser currentUser) {
 
         if (currentUser!=null){
-           //l'utlisateur est deja authetifié
+            layout_auth.setVisibility(View.GONE);
+            layout_acc.setVisibility(View.GONE);
+            layout_succ.setVisibility(View.VISIBLE);
+        }
+        else{
+            layout_auth.setVisibility(View.VISIBLE);
+            layout_acc.setVisibility(View.GONE);
+            layout_succ.setVisibility(View.GONE);
         }
 
 
@@ -141,12 +147,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             layout_auth.setVisibility(View.VISIBLE);
         }
         else if (view.getId()==R.id.btt_singapp_acc) {
-            String email = username_auth.getText().toString();
-            String password = password_auth.getText().toString();
-            createAccount( email,  password)  ;
-            //save auther infos
-            layout_acc.setVisibility(View.GONE);
-            layout_auth.setVisibility(View.VISIBLE);
+            String email = username_acc.getText().toString();
+            String password = password_acc.getText().toString();
+            createAccount( email,  password) ;
         }
 
     }
