@@ -8,6 +8,7 @@
     android:gravity="">
 
     <EditText
+        android:id="@+id/search_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Search"
@@ -17,7 +18,8 @@
         android:layout_weight="3"
         android:layout_width="match_parent"
         android:layout_height="100dp">
-        <ListView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_contacts"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </ScrollView>
