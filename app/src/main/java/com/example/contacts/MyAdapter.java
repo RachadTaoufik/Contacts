@@ -20,7 +20,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private Context context;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(LinkedList<Contact> contacts) {
+    public MyAdapter(LinkedList<Contact> contacts, Context context) {
         this. contacts = new LinkedList<Contact>() ;
         this. contacts.addAll( contacts );
         this.context=context;
