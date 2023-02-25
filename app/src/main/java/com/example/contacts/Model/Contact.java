@@ -1,5 +1,5 @@
 
-package com.example.contacts;
+package com.example.contacts.Model;
 public class Contact {
 
     private String nomContact;

@@ -10,8 +10,10 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.contacts.Model.Contact;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
 
 import java.util.LinkedList;
 
@@ -43,10 +45,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(MyViewHolder holder, int position) {
 // - get element from your dataset at this position
 // - replace the contents of the view with that element
-        holder.identification.setText(contacts.get(position).getNomContact()+contacts.get(position).getPrenomContact());
+        holder.identification.setText(contacts.get(position).getNomContact()+" "+contacts.get(position).getPrenomContact());
 // Reference to an image file in Cloud Storage
         StorageReference storageReference =
-                FirebaseStorage.getInstance().getReference(contacts.get(position).getImg_url());
+                FirebaseStorage.getInstance().getReferenceFromUrl(contacts.get(position).getImg_url());
 // Download directly from StorageReference using Glide
 // (See MyAppGlideModule for Loader registration)
         Glide.with(context /* context */)

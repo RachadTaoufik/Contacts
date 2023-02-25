@@ -4,28 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.contacts.Contact;
+import com.example.contacts.Model.Contact;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -78,15 +70,17 @@ public class Liste_contacts extends AppCompatActivity implements View.OnClickLis
                                 Contact c= new Contact(document.get("nom").toString(),document.get("prenom").toString(),document.get("service").toString(),document.get("email").toString(),document.get("url").toString());
                                 contacts.add(c);
 
+
                             }
+
 
                             // use this setting to improve performance if you know that changes
 // in content do not change the layout size of the RecyclerView
                             contactsRecycler.setHasFixedSize(true);
-// use a linear layout manager
+
                             LinearLayoutManager layoutManager = new LinearLayoutManager(Liste_contacts.this);
                             contactsRecycler.setLayoutManager(layoutManager);
-// specify an adapter (see also next example)
+
                             MyAdapter myAdapter = new MyAdapter(contacts, Liste_contacts.this);
                             contactsRecycler.setAdapter(myAdapter);
 
@@ -97,22 +91,7 @@ public class Liste_contacts extends AppCompatActivity implements View.OnClickLis
                 });
 
 
-        /*
-        db.collection("users")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                            }
-                        } else {
-                            Log.w(TAG, "Error getting documents.", task.getException());
-                        }
-                    }
-                });
-*/
+
     }
 }
 
