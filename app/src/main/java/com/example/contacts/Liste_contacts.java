@@ -1,6 +1,7 @@
 package com.example.contacts;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +20,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -44,9 +47,16 @@ public class Liste_contacts extends AppCompatActivity implements View.OnClickLis
 
 
         db = FirebaseFirestore.getInstance();
-        contacts= new LinkedList<Contact>();
 
+
+    //
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         getContacts();
+
     }
 
     @Override
@@ -59,6 +69,7 @@ public class Liste_contacts extends AppCompatActivity implements View.OnClickLis
 
 
     void getContacts(){
+        contacts= new LinkedList<Contact>();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         DocumentReference docRef = db.collection("user").document(currentUser.getEmail());
@@ -83,6 +94,7 @@ public class Liste_contacts extends AppCompatActivity implements View.OnClickLis
                             contactsRecycler.setLayoutManager(layoutManager);
 
                             MyAdapter myAdapter = new MyAdapter(contacts, Liste_contacts.this);
+
                             contactsRecycler.setAdapter(myAdapter);
 
                         } else {
@@ -94,6 +106,38 @@ public class Liste_contacts extends AppCompatActivity implements View.OnClickLis
 
 
     }
+
+/*
+    void Synchronous(){
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        DocumentReference docRef = db.collection("user").document(currentUser.getEmail());
+        docRef.collection("contact")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w("Erreur", "Listen failed.", e);
+                            return;
+                        }
+
+                        contacts = new LinkedList<Contact>();
+                        for (QueryDocumentSnapshot doc : value) {
+                            Contact c= new Contact(doc.get("nom").toString(),doc.get("prenom").toString(),doc.get("service").toString(),doc.get("email").toString(),doc.get("url").toString());
+                            contacts.add(c);
+                        }
+                        MyAdapter myAdapter = new MyAdapter(contacts, Liste_contacts.this);
+
+                        contactsRecycler.setAdapter(myAdapter);
+                        Log.d("Success", "ok " );
+                    }
+                });
+
+
+    }
+
+ */
 }
 
 

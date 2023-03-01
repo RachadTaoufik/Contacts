@@ -1,12 +1,15 @@
 
 package com.example.contacts.Model;
-public class Contact {
+
+import java.io.Serializable;
+
+public class Contact implements Serializable {
 
     private String nomContact;
     private String prenomContact;
     private String serviceContact;
     private String emailContact;
-
+    private String Tel;
     private String img_url;
 
     public Contact(String nomContact, String prenomContact, String serviceContact,
@@ -55,5 +58,13 @@ public class Contact {
 
     public void setImg_url(String img_url) {
         this.img_url = img_url;
+    }
+
+    public String getTel() {
+        return Tel;
+    }
+
+    public void setTel(String tel) {
+        Tel = tel;
     }
 }

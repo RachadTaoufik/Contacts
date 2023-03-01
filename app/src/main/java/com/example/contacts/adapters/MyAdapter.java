@@ -1,6 +1,7 @@
 package com.example.contacts.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.contacts.Detail_contact;
 import com.example.contacts.Model.Contact;
 import com.example.contacts.R;
 import com.google.firebase.storage.FirebaseStorage;
@@ -35,7 +37,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         View itemLayoutView =
                 LayoutInflater.from(parent.getContext()).inflate(R.layout.contact_item_layout,
                         parent, false);
-        MyViewHolder vh = new MyViewHolder(itemLayoutView);
+        MyViewHolder vh = new MyViewHolder(itemLayoutView );
         return vh;
     }
 
@@ -44,6 +46,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        holder.contact=contacts.get(position);
 // - get element from your dataset at this position
 // - replace the contents of the view with that element
         holder.identification.setText(contacts.get(position).getNomContact()+" "+contacts.get(position).getPrenomContact());
@@ -64,8 +67,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     // Provide a reference to the views for each data item
 // Complex data items may need more than one view per item, and
 // you provide access to all the views for a data item in a view holder
-    public static class MyViewHolder extends RecyclerView.ViewHolder implements
+    public  class MyViewHolder extends RecyclerView.ViewHolder implements
             View.OnClickListener {
+        Contact contact;
         public TextView identification;
         public ImageView photo;
         // Context is a reference to the activity that contain the the recycler view
@@ -77,6 +81,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         }
         @Override
         public void onClick(View v) {
+            Intent myintent= new Intent(context, Detail_contact.class);
+            myintent.putExtra("contact", contact);
+            context.startActivity(myintent);
+
         }
     }
 }
